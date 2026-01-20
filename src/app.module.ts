@@ -4,6 +4,9 @@ import { Postagem } from './postagem/entities/postagem.entity';
 import { PostagemModule } from './postagem/postagem.module';
 import { Tema } from './tema/entities/tema.entity';
 import { TemaModule} from './tema/tema.module';
+import { AuthModule } from './auth/auth.module';
+import { Usuario } from './usuario/entities/usuario.entity';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module ({
   imports: [ // Adicionamos o módulo TypeORMModule ao array imports
@@ -14,11 +17,13 @@ import { TemaModule} from './tema/tema.module';
       username: 'root', // Um nome de usuário de propriedade define o usuário que será utilizado para acessar o banco de dados
       password: 'root', // Uma senha de propriedade especifica a senha do usuário definida anteriormente. O valor root é a senha padrão do MySQL
       database: 'db_blogpessoal', //Um banco de dados de propriedade define o nome do banco de dados que será utilizado
-      entities: [Postagem, Tema],
+      entities: [Postagem, Tema, Usuario],
       synchronize: true,
     }),
     PostagemModule,
-    TemaModule
+    TemaModule,
+    AuthModule,
+    UsuarioModule
   ],
   controllers: [],
   providers: [],
