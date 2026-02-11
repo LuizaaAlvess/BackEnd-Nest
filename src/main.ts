@@ -17,13 +17,12 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-
-  // NÃO coloca barra no início
   SwaggerModule.setup('swagger', app, document);
 
   process.env.TZ = '-03:00';
 
-  await app.listen(4000);
+  const port = process.env.PORT || 4000;
+  await app.listen(port);
 }
 
 bootstrap();
