@@ -13,7 +13,7 @@ export class UsuarioService {
     private bcrypt: Bcrypt
   ) {}
 
-  async findByUsuario(usuario: string): Promise<Usuario> {
+  async findByUsuario(usuario: string): Promise<Usuario | undefined> {
 
     const usuarioEncontrado = await this.usuarioRepository.findOne({
       where: { usuario: usuario }
