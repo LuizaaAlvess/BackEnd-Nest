@@ -69,7 +69,14 @@ export class UsuarioService {
 
   async update(usuario: Usuario): Promise<Usuario> {
 
-    await this.findById(usuario.id);
+    const usuarioExistente = await this.findById(usuario.id);
+
+    if (!usuarioExistente) {
+      throw new HttpException(
+        "Usuário não encontrado!",
+        HttpStatus.NOT_FOUND
+      );
+    }
 
     usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha);
 
