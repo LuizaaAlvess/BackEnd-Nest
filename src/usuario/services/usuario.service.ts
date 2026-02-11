@@ -19,17 +19,18 @@ export class UsuarioService {
       where: { usuario }
     });
 
-    if (!usuarioEncontrado)
+    if (!usuarioEncontrado) {
       throw new HttpException(
         "Usuário não encontrado!",
         HttpStatus.NOT_FOUND
       );
+    }
 
     return usuarioEncontrado;
   }
 
   async findAll(): Promise<Usuario[]> {
-    return await this.usuarioRepository.find();
+    return this.usuarioRepository.find();
   }
 
   async findById(id: number): Promise<Usuario> {
@@ -38,11 +39,12 @@ export class UsuarioService {
       where: { id }
     });
 
-    if (!usuario)
+    if (!usuario) {
       throw new HttpException(
         "Usuário não encontrado!",
         HttpStatus.NOT_FOUND
       );
+    }
 
     return usuario;
   }
@@ -53,15 +55,16 @@ export class UsuarioService {
       where: { usuario: usuario.usuario }
     });
 
-    if (buscaUsuario)
+    if (buscaUsuario) {
       throw new HttpException(
         "Usuário já existe!",
         HttpStatus.BAD_REQUEST
       );
+    }
 
     usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha);
 
-    return await this.usuarioRepository.save(usuario);
+    return this.usuarioRepository.save(usuario);
   }
 
   async update(usuario: Usuario): Promise<Usuario> {
@@ -70,6 +73,6 @@ export class UsuarioService {
 
     usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha);
 
-    return await this.usuarioRepository.save(usuario);
+    return this.usuarioRepository.save(usuario);
   }
 }
